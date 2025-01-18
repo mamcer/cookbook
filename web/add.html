@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>cookbook | add recipe</title>
+    <meta name="description" content="cookbook">
+    <meta name="author" content="Mario Moreno (m4mc3r@gmail.com)">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="./main.css">
+</head>
+
+<body>
+    <h1>Add Recipe</h1>
+
+    <div id="message"></div>
+
+    <form id="add-form">
+        <p>name:</p>
+        <input id="name" type="text" placeholder="name" autocomplete="off"/><br>
+        <p>description:</p>
+        <input id="description" type="text" placeholder="description" autocomplete="off" /><br>
+        <p>directions:</p>
+        <textarea id="direction" rows="10" cols="35" name="comment" required></textarea><br>
+        <p>ingredients:</p>
+        <div id="ingredients"></div>
+        <br>
+        <input id="add-ingredient" type="button" value="add another ingredient" />
+        <br>
+        <br>
+        <input type="submit" value="add recipe" />
+        <input id="cancel" type="button" value="cancel" />
+    </form>
+
+    <br>
+    <br>
+    <input id="another" type="button" value="create another" onclick="javascript:location.href = 'add.html'" style="display:none" />
+    <input id="back-to-recipes" type="button" value="back to home" onclick="javascript:location.href = 'index.html'"
+        style="display:none" />
+
+    <script type="text/javascript" src="./config.js"></script>
+    <script type="text/javascript" src="./add.js"></script>
+</body>
+
+</html>
