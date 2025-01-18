@@ -1,6 +1,0 @@
-{
-    "ApiPort": "2001",
-    "WebPort": "2000",
-	"DBDriverName":"mysql",
-	"DBDataSourceName": "root:root@tcp(localhost:3306)/cookbook"
-}
