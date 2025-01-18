@@ -1,8 +1,8 @@
 # cookbook
 
-What is cookbook? an experiment, an excuse to build a simple REST api  using golang, to play with vanilla javascript, with sqlite (and then migrated to mysql), to test how it will run from a phone, a way to document recipes, all of them and maybe the most important was a way to have some fun and distract the mind amid so much uncertainty and at times fear during the moments of greatest restrictions during the pandemic
+What is cookbook? an experiment, an excuse to build a simple REST api  using golang, to play with vanilla javascript, with sqlite (and then migrated to mysql), to test how it can be hosted on a phone (using termux), a way to document recipes, all of them and maybe the most important was a way to have some fun and distract the mind amid so much uncertainty and at times fear during the moments of greatest restrictions during the pandemic
 
-It is functional but still at a development level. With for example diferent hardcoded values. Originally used directly from my Android One phone with termux (2020) 
+It is functional but still at a development level. With for example diferent hardcoded values.
 
 ## mysql 
 
