@@ -9,5 +9,5 @@ type PingService struct {
 }
 
 func (ps *PingService) GetMessage() string {
-	return ps.Message
+	return "pong"
 }
