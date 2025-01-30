@@ -43,6 +43,7 @@ Restart=always
 RestartSec=10
 User=mario
 Environment=DISPLAY=:0
+Environment="GIN_MODE=release"
 
 [Install]
 WantedBy=multi-user.target
