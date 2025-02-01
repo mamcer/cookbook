@@ -323,7 +323,7 @@ func main() {
 	go func() {
 		http.Handle("/",
 			http.StripPrefix("/",
-				http.FileServer(http.Dir("../../web"))))
+				http.FileServer(http.Dir("."))))
 		log.Fatal(http.ListenAndServe(":"+config.WebPort, nil))
 	}()
 
