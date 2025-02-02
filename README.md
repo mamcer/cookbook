@@ -4,28 +4,33 @@ What is cookbook? an experiment, an excuse to build a simple REST api  using gol
 
 It is functional but still at a development level. With for example diferent hardcoded values.
 
-## mysql 
+## development db 
 
     docker pull mysql:latest
-    docker run -p 3306:3306 --name cookbook -e MYSQL_ROOT_PASSWORD=root -d mysql:latest
+    docker run -p 3366:3306 --name cookbook -e MYSQL_ROOT_PASSWORD=root -d mysql:latest
 
     docker exec -it cookbook mysql -uroot -p
     create database cookbook;
 
-## create schema
+create schema
 
-    mycli -h localhost -u root
+    mycli -h localhost -P 3366 -u root
     use cookbook
     \. schema.sql
 
-## restore backup
+restore backup
 
     # restore a previously created backup mysqldump -u root --password=[password] [db-name] > backup.sql
     source backup.sql
 
 ## how to run
 
-    go run main.go
+on repository root directory
+
+    make build
+    ./bin/main
+
+> api is on port 5001 'curl http://localhost:5001/ping', web app on port 5000 'http://localhost:5000'
 
 ## configure as a service
 
