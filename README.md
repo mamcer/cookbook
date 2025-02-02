@@ -18,7 +18,7 @@ create schema
     use cookbook
     \. schema.sql
 
-restore backup
+(or) restore backup
 
     # restore a previously created backup mysqldump -u root --password=[password] [db-name] > backup.sql
     source backup.sql
