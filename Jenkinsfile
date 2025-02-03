@@ -3,7 +3,7 @@ pipeline {
 	stages {
 		stage("build") {
 			steps {
-				echo "build stage"	
+				sh 'go -C ./cmd/api build -o ../../bin/ main.go'	
 			}
 		}
 	}
