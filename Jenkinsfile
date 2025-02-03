@@ -6,6 +6,11 @@ pipeline {
 				sh 'go -C ./cmd/api build -o ../../bin/ main.go'	
 			}
 		}
+		stage("test"){
+			steps {
+				sh 'go test ./...'
+			}
+		}
 	}
     post {
         success {
