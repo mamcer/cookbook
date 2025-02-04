@@ -1,11 +1,12 @@
 pipeline {
 	agent any
 	environment {
-		PATH='$PATH:/usr/local/go/bin'
+		PATH='${env.PATH}'
 	} 
 	stages {
 		stage("build") {
 			steps {
+				sh "PATH is: $PATH"
 				sh 'go version'	
 //				sh 'go -C ./cmd/api build -o ../../bin/ main.go'	
 			}
