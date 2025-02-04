@@ -4,7 +4,7 @@ pipeline {
 	stages {
 		stage("build") {
 			steps {
-				sh 'go version'
+				sh 'go -C ./cmd/api build -o ../../bin main.go'
 			}
 		}
 	}
