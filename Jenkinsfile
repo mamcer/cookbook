@@ -1,12 +1,10 @@
 pipeline {
 	agent any
-	environment {
-		PATH = '${env.PATH}'
-	} 
+  	tools { go '1.23.4' }
 	stages {
 		stage("build") {
 			steps {
-				sh '/usr/local/go/bin/go version'
+				sh 'go version'
 			}
 		}
 	}
