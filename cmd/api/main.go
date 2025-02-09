@@ -215,5 +215,5 @@ func main() {
 	// 	log.Fatal(http.ListenAndServe(":"+config.WebPort, nil))
 	// }()
 
-	g.Run(":" + config.ApiPort)
+	// g.Run(":" + config.ApiPort)
 }

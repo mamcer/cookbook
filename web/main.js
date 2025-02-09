@@ -211,5 +211,8 @@ document.onreadystatechange = function () {
 			e.preventDefault()
 			search()
 		});
+		
+	    	showAll()
+
 	}
 }
