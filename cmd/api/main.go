@@ -2,28 +2,68 @@ package main
 
 import (
 	"database/sql"
-	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
-	"github.com/mamcer/cookbook/configs"
 	"github.com/mamcer/cookbook/internal/handlers"
 	"github.com/mamcer/cookbook/internal/services"
 )
 
-var config configs.Configuration
-
-func getDB() *sql.DB {
+func getDB(driver, source string) *sql.DB {
 	var err error
-	db, err := sql.Open(config.DBDriverName, config.DBDataSourceName)
+	db, err := sql.Open(driver, source)
 	if err != nil {
 		panic(err.Error())
 	}
 
 	return db
+}
+
+func preflight(c *gin.Context) {
+	c.Header("Access-Control-Allow-Origin", "*")
+	c.Header("Access-Control-Allow-Headers", "access-control-allow-origin, access-control-allow-headers")
+	c.JSON(http.StatusOK, struct{}{})
+}
+
+func main() {
+	apiPort := os.Getenv("SPELLBOOK_API_PORT")
+	webPort := os.Getenv("SPELLBOOK_WEB_PORT")
+	dbDriver := os.Getenv("SPELLBOOK_DB_DRIVER")
+	dbUser := os.Getenv("SPELLBOOK_DB_USER")
+	dbPass := os.Getenv("SPELLBOOK_DB_PASS")
+	dbHost := os.Getenv("SPELLBOOK_DB_HOST")
+	dbPort := os.Getenv("SPELLBOOK_DB_PORT")
+	dbName := os.Getenv("SPELLBOOK_DB_NAME")
+
+	db := getDB(dbDriver, fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPass, dbHost, dbPort, dbName))
+
+	err := db.Ping()
+	if err != nil {
+		fmt.Printf("there is an error in the db connection %s", err)
+	}
+
+	g := gin.Default()
+
+	handlers.NewPingHandler(g, &services.PingService{Message: "pong"})
+
+	go func() {
+		ex, err := os.Executable()
+		if err != nil {
+			panic(err)
+		}
+
+		http.Handle("/",
+			http.StripPrefix("/",
+				http.FileServer(http.Dir(filepath.Dir(ex)))))
+		log.Fatal(http.ListenAndServe(":"+webPort, nil))
+	}()
+
+	g.Run(":" + apiPort)
 }
 
 // func ping(c *gin.Context) {
@@ -167,53 +207,29 @@ func getDB() *sql.DB {
 
 // }
 
-func preflight(c *gin.Context) {
-	c.Header("Access-Control-Allow-Origin", "*")
-	c.Header("Access-Control-Allow-Headers", "access-control-allow-origin, access-control-allow-headers")
-	c.JSON(http.StatusOK, struct{}{})
-}
+// g.GET("/ping", ping)
+// g.OPTIONS("/ping", preflight)
 
-func main() {
-	f, err := os.Open("../../configs/config.json")
-	if err != nil {
-		fmt.Printf("error opening config.json: %v", err)
-		return
-	}
-	decoder := json.NewDecoder(f)
-	err = decoder.Decode(&config)
-	if err != nil {
-		fmt.Printf("error decoding config.json: %v", err)
-		return
-	}
+// g.GET("/search", search)
+// g.OPTIONS("/search", preflight)
 
-	g := gin.Default()
+// g.GET("/recipes/", recipesController)
+// g.OPTIONS("/recipes/", preflight)
 
-	handlers.NewPingHandler(g, &services.PingService{Message: "pong"})
+// g.GET("/recipes/:id", recipeController)
+// g.OPTIONS("/recipes/:id", preflight)
 
-	// g.GET("/ping", ping)
-	// g.OPTIONS("/ping", preflight)
+// g.GET("/recipes/count", recipesCount)
+// g.OPTIONS("/recipes/count", preflight)
 
-	// g.GET("/search", search)
-	// g.OPTIONS("/search", preflight)
+// g.POST("/recipes", createRecipe)
+// g.OPTIONS("/recipes", preflight)
 
-	// g.GET("/recipes/", recipesController)
-	// g.OPTIONS("/recipes/", preflight)
+// go func() {
+// 	http.Handle("/",
+// 		http.StripPrefix("/",
+// 			http.FileServer(http.Dir("../../web"))))
+// 	log.Fatal(http.ListenAndServe(":"+config.WebPort, nil))
+// }()
 
-	// g.GET("/recipes/:id", recipeController)
-	// g.OPTIONS("/recipes/:id", preflight)
-
-	// g.GET("/recipes/count", recipesCount)
-	// g.OPTIONS("/recipes/count", preflight)
-
-	// g.POST("/recipes", createRecipe)
-	// g.OPTIONS("/recipes", preflight)
-
-	// go func() {
-	// 	http.Handle("/",
-	// 		http.StripPrefix("/",
-	// 			http.FileServer(http.Dir("../../web"))))
-	// 	log.Fatal(http.ListenAndServe(":"+config.WebPort, nil))
-	// }()
-
-	// g.Run(":" + config.ApiPort)
-}
+// g.Run(":" + config.ApiPort)

@@ -3,5 +3,6 @@ run:
 test:
 	go test ./...
 build:
-	go -C ./cmd/api build -o ../../bin/ main.go;cp ./cmd/api/config.json ./bin;cp ./web/* ./bin
-	
+	@ printf "building app.. "
+	@ go -C ./cmd/api build -o ../../bin/ main.go;cp ./configs/config.json ./bin;cp ./web/* ./bin
+	@ echo "[done]"	
