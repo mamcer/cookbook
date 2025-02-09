@@ -2,7 +2,7 @@
 
 ## ping 
  
-Basically to get service status.
+Get service status.
 
 ### request
 
