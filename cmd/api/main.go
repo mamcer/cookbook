@@ -45,6 +45,7 @@ func main() {
 	err := db.Ping()
 	if err != nil {
 		fmt.Printf("there is an error in the db connection %s", err)
+		panic(err)
 	}
 
 	g := gin.Default()
