@@ -67,15 +67,6 @@ func main() {
 	g.Run(":" + apiPort)
 }
 
-// func ping(c *gin.Context) {
-// 	c.Header("Access-Control-Allow-Origin", "*")
-// 	c.Header("Access-Control-Allow-Headers", "access-control-allow-origin, access-control-allow-headers")
-
-// 	c.JSON(200, gin.H{
-// 		"message": "pong",
-// 	})
-// }
-
 // func search(c *gin.Context) {
 // 	query := c.DefaultQuery("q", "Default")
 // 	ing := c.Query("ingredient")
