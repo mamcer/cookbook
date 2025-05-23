@@ -73,70 +73,121 @@ func getDB() *sql.DB {
 	var err error
 	db, err := sql.Open(config.DBDriverName, config.DBDataSourceName)
 	if err != nil {
-		panic(err.Error())
+		log.Fatalf("failed to open database: %v", err)
 	}
-
 	return db
 }
 
 func insertUnit(db *sql.DB, name string) *UnitDto {
 	var u UnitDto
 	err := db.QueryRow("SELECT id, name FROM unit WHERE lower(name) = lower(?)", name).Scan(&u.ID, &u.Name)
-	fmt.Printf("insert unit: %d", err)
+	if err != nil && err != sql.ErrNoRows {
+		log.Printf("error querying unit: %v", err)
+	}
 	if err == sql.ErrNoRows {
-		statement, _ := db.Prepare("INSERT INTO unit (name) VALUES (?)")
-		res, _ := statement.Exec(name)
-		u.ID, _ = res.LastInsertId()
+		statement, err := db.Prepare("INSERT INTO unit (name) VALUES (?)")
+		if err != nil {
+			log.Printf("error preparing insert unit: %v", err)
+			return nil
+		}
+		defer statement.Close()
+		res, err := statement.Exec(name)
+		if err != nil {
+			log.Printf("error executing insert unit: %v", err)
+			return nil
+		}
+		u.ID, err = res.LastInsertId()
+		if err != nil {
+			log.Printf("error getting last insert id for unit: %v", err)
+			return nil
+		}
 		u.Name = name
 	}
-
 	return &u
 }
 
 func insertIngredient(db *sql.DB, name string) *IngredientDto {
 	var i IngredientDto
 	err := db.QueryRow("SELECT id, name FROM ingredient WHERE lower(name) = lower(?)", name).Scan(&i.ID, &i.Name)
-	fmt.Printf("insert ingredient: %d", err)
+	if err != nil && err != sql.ErrNoRows {
+		log.Printf("error querying ingredient: %v", err)
+	}
 	if err == sql.ErrNoRows {
-		statement, _ := db.Prepare("INSERT INTO ingredient (name) VALUES (?)")
-		res, _ := statement.Exec(name)
-		i.ID, _ = res.LastInsertId()
+		statement, err := db.Prepare("INSERT INTO ingredient (name) VALUES (?)")
+		if err != nil {
+			log.Printf("error preparing insert ingredient: %v", err)
+			return nil
+		}
+		defer statement.Close()
+		res, err := statement.Exec(name)
+		if err != nil {
+			log.Printf("error executing insert ingredient: %v", err)
+			return nil
+		}
+		i.ID, err = res.LastInsertId()
+		if err != nil {
+			log.Printf("error getting last insert id for ingredient: %v", err)
+			return nil
+		}
 		i.Name = name
 	}
-
 	return &i
 }
 
 func insertRecipe(db *sql.DB, name string, description string, direction string) *RecipeDto {
 	var r RecipeDto
 	err := db.QueryRow("SELECT id, name, description, direction FROM recipe WHERE lower(name) = lower(?)", name).Scan(&r.ID, &r.Name, &r.Description, &r.Direction)
-	fmt.Printf("insert recipe: %d", err)
+	if err != nil && err != sql.ErrNoRows {
+		log.Printf("error querying recipe: %v", err)
+	}
 	if err == sql.ErrNoRows {
-		statement, _ := db.Prepare("INSERT INTO recipe (`name`, `description`, `direction`) VALUES (?, ?, ?)")
-		res, _ := statement.Exec(name, description, direction)
-		r.ID, _ = res.LastInsertId()
+		statement, err := db.Prepare("INSERT INTO recipe (`name`, `description`, `direction`) VALUES (?, ?, ?)")
+		if err != nil {
+			log.Printf("error preparing insert recipe: %v", err)
+			return nil
+		}
+		defer statement.Close()
+		res, err := statement.Exec(name, description, direction)
+		if err != nil {
+			log.Printf("error executing insert recipe: %v", err)
+			return nil
+		}
+		r.ID, err = res.LastInsertId()
+		if err != nil {
+			log.Printf("error getting last insert id for recipe: %v", err)
+			return nil
+		}
 		r.Name = name
 		r.Description = description
 		r.Direction = direction
 	}
-
 	return &r
 }
 
 func insertRecipeIngredient(db *sql.DB, recipeID int64, ingredientID int64, unitID int64, quantity float64, note string) *RecipeIngredientDto {
 	var ri RecipeIngredientDto
 	err := db.QueryRow("SELECT recipe_id, ingredient_id, unit_id, quantity, note FROM recipe_ingredient WHERE recipe_id = ? and ingredient_id = ? and unit_id = ?", recipeID, ingredientID, unitID).Scan(&ri.RecipeID, &ri.IngredientID, &ri.UnitID, &ri.Quantity, &ri.Note)
-	fmt.Printf("insert recipe  ingredient: %d", err)
+	if err != nil && err != sql.ErrNoRows {
+		log.Printf("error querying recipe_ingredient: %v", err)
+	}
 	if err == sql.ErrNoRows {
-		statement, _ := db.Prepare("INSERT INTO recipe_ingredient (recipe_id, ingredient_id, unit_id, quantity, note) VALUES (?, ?, ?, ?, ?)")
-		statement.Exec(recipeID, ingredientID, unitID, quantity, note)
+		statement, err := db.Prepare("INSERT INTO recipe_ingredient (recipe_id, ingredient_id, unit_id, quantity, note) VALUES (?, ?, ?, ?, ?)")
+		if err != nil {
+			log.Printf("error preparing insert recipe_ingredient: %v", err)
+			return nil
+		}
+		defer statement.Close()
+		_, err = statement.Exec(recipeID, ingredientID, unitID, quantity, note)
+		if err != nil {
+			log.Printf("error executing insert recipe_ingredient: %v", err)
+			return nil
+		}
 		ri.RecipeID = recipeID
 		ri.IngredientID = ingredientID
 		ri.UnitID = unitID
 		ri.Quantity = quantity
 		ri.Note = note
 	}
-
 	return &ri
 }
 
