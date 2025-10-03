@@ -75,4 +75,6 @@ sudo systemctl status cookbook.service
 
 view logs:
 
-    journalctl -u cookbook -b
+```bash
+journalctl -u cookbook -b
+```
