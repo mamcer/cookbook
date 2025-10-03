@@ -42,10 +42,13 @@ make build
 
 ## configure as a service
 
-    sudo vim /etc/systemd/system/cookbook.service
+```bash
+sudo vim /etc/systemd/system/cookbook.service
+```
 
 add the following content:
 
+```
 [Unit]
 Description=Cookbook
 
@@ -60,12 +63,15 @@ Environment="GIN_MODE=release"
 
 [Install]
 WantedBy=multi-user.target
+```
 
 then:
 
-    sudo systemctl enable cookbook.service
-    sudo systemctl start cookbook.service
-    sudo systemctl status cookbook.service
+```bash
+sudo systemctl enable cookbook.service
+sudo systemctl start cookbook.service
+sudo systemctl status cookbook.service
+```
 
 view logs:
 
