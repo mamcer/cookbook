@@ -6,11 +6,13 @@ It is functional but still at a development level. With for example diferent har
 
 ## development db 
 
-    docker pull mysql:latest
-    docker run -p 3366:3306 --name cookbook -e MYSQL_ROOT_PASSWORD=root -d mysql:latest
+```bash
+docker pull mysql:latest
+docker run -p 3366:3306 --name cookbook -e MYSQL_ROOT_PASSWORD=root -d mysql:latest
 
-    docker exec -it cookbook mysql -uroot -p
-    create database cookbook;
+docker exec -it cookbook mysql -uroot -p
+create database cookbook;
+```
 
 create schema
 
