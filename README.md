@@ -24,9 +24,11 @@ use cookbook
 
 (or) restore backup
 
-    # restore a previously created backup mysqldump -u root --password=[password] [db-name] > backup.sql
-    source backup.sql
-
+```bash
+# restore a previously created backup 
+mysqldump -u root --password=[password] [db-name] > backup.sql
+source backup.sql
+```
 ## how to run
 
 on repository root directory
