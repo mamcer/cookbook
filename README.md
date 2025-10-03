@@ -33,8 +33,10 @@ source backup.sql
 
 on repository root directory
 
-    make build
-    ./bin/main
+```bash
+make build
+./bin/main
+```
 
 > api is on port 5001 'curl http://localhost:5001/ping', web app on port 5000 'http://localhost:5000'
 
