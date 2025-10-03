@@ -16,9 +16,11 @@ create database cookbook;
 
 create schema
 
-    mycli -h localhost -P 3366 -u root
-    use cookbook
-    \. schema.sql
+```bash
+mycli -h localhost -P 3366 -u root
+use cookbook
+\. schema.sql
+```
 
 (or) restore backup
 
