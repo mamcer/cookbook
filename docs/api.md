@@ -58,39 +58,45 @@ GET /search?q=papa&ingredient=tomillo,sal,pimienta
 
 ## recipes/
 
+```
 GET /recipes/
+```
 
 Return all recipes.
 
 ### request
 
-    GET /recipes/
+```
+GET /recipes/
+```
 
 ### response
 
-    [
-        {
-            "id": 6,
-            "name": "papas barquito",
-            "description": "nam-nam pagina 83",
-            "direction": "Antes que nada, prendemos el horno y ponemos la placa o fuente limpia para precalentarla. Mientras, lavamos y cortamos las papas<br><br>En un bol condimentamos las papas con un poquito de aceite de oliva, limon, manteca, curcuma, hierbas, sal y pimienta. Mezclamos bien<br><br>Las ponemos en la placa (muy caliente) y cocinamos en el horno a 200 °C hasta que estén doraditas y crocantes. Las podemos sacar a los 15 minutos y dar vuelta para que salgan más crocantes<br><br>Y si son muy grandes los trozos de papa, una vez en el horno, agregamos media tacita de agua para que resulten tiernas por dentro y doradas por fuera",
-            "ingredients": [
-              {
-                "name": "papa",
-                "quantity": 1,
-                "unit": "unidad",
-                "note": ""
-              },
-              {
-                "name": "aceite de oliva",
-                "quantity": 1,
-                "unit": "a gusto",
-                "note": "o manteca"
-              },
-              ...
-        }
-        ...
-    ]
+```json
+[
+    {
+        "id": 6,
+        "name": "papas barquito",
+        "description": "nam-nam pagina 83",
+        "direction": "Antes que nada, prendemos el horno y ponemos la placa o fuente limpia para precalentarla. Mientras, lavamos y cortamos las papas<br><br>En un bol condimentamos las papas con un poquito de aceite de oliva, limon, manteca, curcuma, hierbas, sal y pimienta. Mezclamos bien<br><br>Las ponemos en la placa (muy caliente) y cocinamos en el horno a 200 °C hasta que estén doraditas y crocantes. Las podemos sacar a los 15 minutos y dar vuelta para que salgan más crocantes<br><br>Y si son muy grandes los trozos de papa, una vez en el horno, agregamos media tacita de agua para que resulten tiernas por dentro y doradas por fuera",
+        "ingredients": [
+          {
+            "name": "papa",
+            "quantity": 1,
+            "unit": "unidad",
+            "note": ""
+          },
+          {
+            "name": "aceite de oliva",
+            "quantity": 1,
+            "unit": "a gusto",
+            "note": "o manteca"
+          },
+          ...
+    }
+    ...
+]
+```
 
 ## recipes/:id
 
