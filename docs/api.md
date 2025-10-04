@@ -161,6 +161,8 @@ GET /recipes/count
 
 ## response
 
-    {
-      "count": 28
-    }
+```json
+{
+  "count": 28
+}
+```
