@@ -22,31 +22,39 @@ GET /ping
 
 Search recipes based on a query string and up to three optional ingredients. 
 
+```
 GET /search?q=[query-string]&ingredient=[ingredient-01],[ingredient-02],[ingredient-03]
+```
 
 > Empty query string returns all recipes.
 
 ### request
 
-    GET /search?q=papas%20barquito
+```
+GET /search?q=papas%20barquito
+```
 
-    GET /search?q=papa&ingredient=tomillo,sal,pimienta
+```
+GET /search?q=papa&ingredient=tomillo,sal,pimienta
+```
 
 ### response
 
+```json
+{
+  "query": "papas barquito",
+  "recipes": [
     {
-      "query": "papas barquito",
-      "recipes": [
-        {
-          "id": 6,
-          "name": "papas barquito",
-          "description": "nam-nam pagina 83",
-          "direction": "",
-          "ingredients": null
-        }
-        ...
-      ]
+      "id": 6,
+      "name": "papas barquito",
+      "description": "nam-nam pagina 83",
+      "direction": "",
+      "ingredients": null
     }
+    ...
+  ]
+}
+```
 
 ## recipes/
 
