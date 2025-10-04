@@ -6,13 +6,17 @@ Get service status.
 
 ### request
 
-    GET /ping
+```
+GET /ping
+```
 
 ### response
 
-    {
-      "message": "pong"
-    }
+```json
+{
+  "message": "pong"
+}
+```
 
 ## search
 
