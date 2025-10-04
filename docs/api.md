@@ -141,17 +141,23 @@ GET /recipes/6
 
 invalid id.
 
-    HTTP/1.1 404 Not Found
+```
+HTTP/1.1 404 Not Found
+```
 
 ## recipes/count
 
+```
 GET /recipes/count
+```
 
 Returns the quantity of recipes on the database.
 
 ## request
 
-    GET /recipes/count
+```
+GET /recipes/count
+```
 
 ## response
 
